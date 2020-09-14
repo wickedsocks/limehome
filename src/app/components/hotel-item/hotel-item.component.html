@@ -1,0 +1,12 @@
+<div class="hotel-item" (click)="chooseHotel()">
+  <div class="hotel-info">
+    <img class="hotel-photo" [src]="hotel.photos" alt="hotel photo">
+    <div class="hotel-description">
+      <h3 class="hotel-name">{{ hotel.name }}</h3>
+      <p class="hotel-location-item distance">{{ hotel.location.distance }} meters from you</p>
+      <p class="hotel-location-item">address: {{ hotel.location.address }}</p>
+      <p class="hotel-location-item">state: {{ hotel.location.state }}</p>
+    </div>
+  </div>
+  <button class="book">book</button>
+</div>

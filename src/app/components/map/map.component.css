@@ -1,0 +1,14 @@
+agm-map {
+  height: 440px;
+}
+
+.hotels-container {
+  display: flex;
+  overflow-x: scroll;
+  position: relative;
+  bottom: 160px;
+}
+
+:host /deep/ .gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
+  bottom: auto !important;
+}

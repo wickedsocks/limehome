@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  background-color: rgb(235, 234, 230);
+  align-content: center;
+}
+
+.header__logo,
+.header__burger {
+  display: flex;
+  align-items: center;
+}

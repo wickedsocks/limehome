@@ -1,0 +1,20 @@
+<div>
+  <ng-container *ngIf="showMap">
+    <agm-map [latitude]="latitude" [longitude]="longitude" (mapClick)="onChoseLocation($event)">
+      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+      <div *ngFor="let hotel of hotels">
+        <agm-marker [latitude]="hotel.location.latitude" [longitude]="hotel.location.longitude" [iconUrl]="hotel.icon"
+          (markerClick)="markerClick(hotel)">
+        </agm-marker>
+      </div>
+    </agm-map>
+  </ng-container>
+
+  <div class="hotels-container">
+    <ng-container *ngIf="hotels">
+      <div *ngFor="let hotel of hotels">
+        <app-hotel-item [hotel]="hotel" (selectHotel)="chooseHotel($event)"></app-hotel-item>
+      </div>
+    </ng-container>
+  </div>
+</div>

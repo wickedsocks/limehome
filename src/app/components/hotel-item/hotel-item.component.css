@@ -1,0 +1,52 @@
+.hotel-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+  padding: 10px;
+  margin: 0 10px;
+  background-color: rgb(256, 256, 256);
+}
+
+.hotel-info {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.hotel-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.hotel-name {
+  margin: 10px 0;
+  font-size: 12px;
+  text-align: center;
+}
+
+.hotel-location-item {
+  font-size: 10px;
+  margin: 5px 0;
+  color: rgb(147, 150, 157);
+}
+
+.distance {
+  text-transform: uppercase;
+}
+
+.book {
+  border: none;
+  padding: 5px;
+  color: rgb(256, 256, 256);
+  text-transform: capitalize;
+  background-color: rgb(234, 152, 62);
+}
+
+.hotel-photo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 5px auto;
+  max-width: 100px;
+}
