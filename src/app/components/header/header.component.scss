@@ -1,0 +1,32 @@
+@import "src/assets/styles/variables";
+
+.header {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  background-color: map-get($lime-grey-palette, 300);
+  align-content: center;
+
+  img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+  }
+
+  &__logo,
+  &__burger {
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    width: 100px;
+  }
+
+  &__burger {
+    justify-content: center;
+    width: 24px;
+  }
+}
+
+

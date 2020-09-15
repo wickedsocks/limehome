@@ -1,19 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
-import { AgmCoreModule } from '@agm/core';
+import {Component, OnInit} from '@angular/core';
+
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
+import {ApiService} from '../../services/api.service';
+import {IHotel} from '../../models/app.model';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  public latitude: number = 51.673858;
-  public longitude: number = 7.815982;
+  public latitude = 51.673858;
+  public longitude = 7.815982;
+  public zoom = 11;
   public showMap = false;
-  public hotels = [];
+  public hotels: IHotel[] = [];
+  public selectedHotel: IHotel;
 
-  constructor(private _apiService: ApiService) {}
+  private _destroy$: Subject<void> = new Subject<void>();
+
+  constructor(private _apiService: ApiService) {
+  }
 
   ngOnInit(): void {
     this._findMe();
@@ -23,19 +32,23 @@ export class MapComponent implements OnInit {
     console.log(event);
   }
 
+  public onZoomChanged(zoom: number): void {
+    this.zoom = zoom;
+  }
+
   private _findMe(): void {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition((position: Position) => {
         this._setMyPosition(position);
       });
     } else {
-      alert("Geolocation is not supported by this browser. So we show you location by default");
+      alert('Geolocation is not supported by this browser. So we show you location by default');
       this.showMap = true;
       this._getHotels();
     }
   }
 
-  private _setMyPosition(position): void {
+  private _setMyPosition(position: Position): void {
     if (position && position.coords) {
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
@@ -45,17 +58,23 @@ export class MapComponent implements OnInit {
   }
 
   private _getHotels(): void {
-    this._apiService.getHotels(this.latitude, this.longitude).subscribe((res) => this.hotels = res);
+    this._apiService.getHotels(this.latitude, this.longitude)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((hotels: IHotel[]) => this.hotels = hotels);
   }
 
-  public markerClick(hotel) {
+  public markerClick(selectedHotel: IHotel): void {
+    this.selectedHotel = selectedHotel;
     this.hotels.map((hotel) => {
-      hotel.icon = '/assets/home.svg';
+      hotel.icon = '/assets/images/home.svg';
     });
-    hotel.icon = '/assets/home-active.svg';
+    selectedHotel.icon = '/assets/images/home-active.svg';
+    this.zoom = 18;
+    this.latitude = selectedHotel.location.latitude;
+    this.longitude = selectedHotel.location.longitude;
   }
 
-  public chooseHotel(hotel) {
+  public chooseHotel(hotel: IHotel): void {
     this.markerClick(hotel);
   }
 }

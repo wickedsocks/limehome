@@ -1,0 +1,30 @@
+@import "src/assets/styles/variables";
+@import "src/assets/styles/mixins/mixins";
+
+:host {
+  display: block;
+  height: calc(100% - #{$header-height});
+
+  & ::ng-deep .gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
+    bottom: auto !important;
+  }
+}
+
+.map-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+agm-map {
+  height: 100%;
+}
+
+.hotels-container {
+  position: absolute;
+  width: 100%;
+  overflow-x: scroll;
+  @include customScroll(2px, transrarent, $brand-primary);
+  display: flex;
+  bottom: 0;
+  z-index: 1;
+}

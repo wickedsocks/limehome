@@ -1,9 +1,19 @@
-<div>
+<div class="map-wrapper">
   <ng-container *ngIf="showMap">
-    <agm-map [latitude]="latitude" [longitude]="longitude" (mapClick)="onChoseLocation($event)">
-      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+    <agm-map
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [zoom]="zoom"
+      (zoomChange)="onZoomChanged($event)"
+      (mapClick)="onChoseLocation($event)">
+      <agm-marker
+        [latitude]="latitude"
+        [longitude]="longitude"></agm-marker>
       <div *ngFor="let hotel of hotels">
-        <agm-marker [latitude]="hotel.location.latitude" [longitude]="hotel.location.longitude" [iconUrl]="hotel.icon"
+        <agm-marker
+          [latitude]="hotel.location.latitude"
+          [longitude]="hotel.location.longitude"
+          [iconUrl]="hotel.icon"
           (markerClick)="markerClick(hotel)">
         </agm-marker>
       </div>
@@ -13,7 +23,10 @@
   <div class="hotels-container">
     <ng-container *ngIf="hotels">
       <div *ngFor="let hotel of hotels">
-        <app-hotel-item [hotel]="hotel" (selectHotel)="chooseHotel($event)"></app-hotel-item>
+        <app-hotel-item
+          [hotel]="hotel"
+          [selected]="selectedHotel"
+          (selectHotel)="chooseHotel($event)"></app-hotel-item>
       </div>
     </ng-container>
   </div>
